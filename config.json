@@ -1,0 +1,4 @@
+﻿{
+	"adapterHost": "gpib.int.bork.in",
+	"gpibAddress": 1,
+}
