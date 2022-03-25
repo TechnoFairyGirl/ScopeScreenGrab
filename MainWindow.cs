@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -20,8 +21,8 @@ namespace ScopeScreenGrab
 
 		static byte[] GetPclScreenshot(string adapterHost, int gpibAddress)
 		{
-			var client = new TcpClient(adapterHost, 1234);
-			var stream = client.GetStream();
+			using var client = new TcpClient(adapterHost, 1234);
+			using var stream = client.GetStream();
 
 			stream.WriteLine("++savecfg 0");
 			stream.WriteLine("++mode 1");
@@ -59,10 +60,8 @@ namespace ScopeScreenGrab
 		static int FindBytes<T>(IEnumerable<T> source, IEnumerable<T> pattern)
 		{
 			for (int i = 0; i < source.Count(); i++)
-			{
 				if (source.Skip(i).Take(pattern.Count()).SequenceEqual(pattern))
 					return i;
-			}
 
 			return -1;
 		}
@@ -181,7 +180,7 @@ namespace ScopeScreenGrab
 				sfd.RestoreDirectory = true;
 
 				if (sfd.ShowDialog() == DialogResult.OK)
-					bitmap.Save(sfd.FileName);
+					bitmap.Save(sfd.FileName, ImageFormat.Png);
 			}
 			catch (Exception ex)
 			{
