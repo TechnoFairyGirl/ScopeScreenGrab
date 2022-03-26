@@ -35,6 +35,7 @@
 			this.screenshotBox = new System.Windows.Forms.PictureBox();
 			this.getScreenshotButton = new System.Windows.Forms.Button();
 			this.saveScreenshotButton = new System.Windows.Forms.Button();
+			this.invertButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.screenshotBox)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -97,7 +98,7 @@
 			// saveScreenshotButton
 			// 
 			this.saveScreenshotButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.saveScreenshotButton.Location = new System.Drawing.Point(198, 626);
+			this.saveScreenshotButton.Location = new System.Drawing.Point(195, 626);
 			this.saveScreenshotButton.Name = "saveScreenshotButton";
 			this.saveScreenshotButton.Size = new System.Drawing.Size(146, 39);
 			this.saveScreenshotButton.TabIndex = 5;
@@ -105,11 +106,23 @@
 			this.saveScreenshotButton.UseVisualStyleBackColor = true;
 			this.saveScreenshotButton.Click += new System.EventHandler(this.saveScreenshotButton_Click);
 			// 
+			// invertButton
+			// 
+			this.invertButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.invertButton.Location = new System.Drawing.Point(359, 626);
+			this.invertButton.Name = "invertButton";
+			this.invertButton.Size = new System.Drawing.Size(118, 39);
+			this.invertButton.TabIndex = 6;
+			this.invertButton.Text = "Invert Colors";
+			this.invertButton.UseVisualStyleBackColor = true;
+			this.invertButton.Click += new System.EventHandler(this.invertButton_Click);
+			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(730, 690);
+			this.Controls.Add(this.invertButton);
 			this.Controls.Add(this.saveScreenshotButton);
 			this.Controls.Add(this.getScreenshotButton);
 			this.Controls.Add(this.screenshotBox);
@@ -136,6 +149,7 @@
 		private System.Windows.Forms.PictureBox screenshotBox;
 		private System.Windows.Forms.Button getScreenshotButton;
 		private System.Windows.Forms.Button saveScreenshotButton;
+		private System.Windows.Forms.Button invertButton;
 	}
 }
 

@@ -119,6 +119,7 @@ namespace ScopeScreenGrab
 				addressBox.Enabled = false;
 				getScreenshotButton.Enabled = false;
 				saveScreenshotButton.Enabled = false;
+				invertButton.Enabled = false;
 
 				var pclData = GetPclScreenshot(adapterHost, gpibAddress);
 				var imageData = GetImageFromPcl(pclData);
@@ -135,6 +136,7 @@ namespace ScopeScreenGrab
 				addressBox.Enabled = true;
 				getScreenshotButton.Enabled = true;
 				saveScreenshotButton.Enabled = true;
+				invertButton.Enabled = true;
 
 				this.Text = "Oscilloscope Screenshot Tool";
 			}
@@ -145,6 +147,7 @@ namespace ScopeScreenGrab
 			try
 			{
 				var bitmap = (Bitmap)screenshotBox.Image;
+
 				if (bitmap == null)
 				{
 					MessageBox.Show("You must get an image before saving.", "Seriously?!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -158,6 +161,40 @@ namespace ScopeScreenGrab
 
 				if (sfd.ShowDialog() == DialogResult.OK)
 					bitmap.Save(sfd.FileName, ImageFormat.Png);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.ToString(), "Something Went Wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+		}
+
+		private void invertButton_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				var bitmap = (Bitmap)screenshotBox.Image;
+
+				if (bitmap == null)
+				{
+					MessageBox.Show("You must get an image before inverting colors.", "Seriously?!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
+
+				var newBitmap = new Bitmap(bitmap);
+
+				for (var y = 0; y < newBitmap.Height; y++)
+				{
+					for (var x = 0; x < newBitmap.Width; x++)
+					{
+						var pixel = newBitmap.GetPixel(x, y);
+						newBitmap.SetPixel(x, y,
+							Color.FromArgb(255 - pixel.R, 255 - pixel.G, 255 - pixel.B));
+					}
+				}
+
+				bitmap.Dispose();
+				screenshotBox.Image = newBitmap;
 			}
 			catch (Exception ex)
 			{
