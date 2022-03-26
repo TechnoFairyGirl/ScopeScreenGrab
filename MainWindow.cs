@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SimpleHttp;
+using PrologixGPIB;
 
 namespace ScopeScreenGrab
 {
@@ -21,40 +21,17 @@ namespace ScopeScreenGrab
 
 		static byte[] GetPclScreenshot(string adapterHost, int gpibAddress)
 		{
-			using var client = new TcpClient(adapterHost, 1234);
-			using var stream = client.GetStream();
+			using var gpib = new GPIB(adapterHost, gpibAddress);
 
-			stream.WriteLine("++savecfg 0");
-			stream.WriteLine("++mode 1");
-			stream.WriteLine($"++addr {gpibAddress}");
-			stream.WriteLine("++auto 0");
-			stream.WriteLine("++eoi 1");
-			stream.WriteLine("++eos 2");
-			stream.WriteLine("++eot_enable 0");
-			stream.WriteLine("++eot_char 0");
-			stream.WriteLine("++read_tmo_ms 3000");
-			stream.WriteLine("++ifc");
+			gpib.Send(":HARDCOPY:MODE THINKJET");
+			gpib.Send(":HARDCOPY:LENGTH 11");
+			gpib.Send(":HARDCOPY:PAGE AUTOMATIC");
 
-			stream.WriteLine(":HARDCOPY:MODE THINKJET");
-			stream.WriteLine(":HARDCOPY:LENGTH 11");
-			stream.WriteLine(":HARDCOPY:PAGE AUTOMATIC");
-			stream.WriteLine(":PRINT?");
-			stream.WriteLine("++read eoi");
+			var data = gpib.BinaryQuery(":PRINT?");
 
-			var pclData = new List<byte>();
+			gpib.Local();
 
-			while (true)
-			{
-				Task.Delay(3000).Wait();
-				var dataAvailable = client.Available;
-				if (dataAvailable == 0) break;
-				var dataBlock = stream.ReadBytes(dataAvailable);
-				pclData.AddRange(dataBlock);
-			}
-
-			stream.WriteLine("++loc");
-
-			return pclData.ToArray();
+			return data;
 		}
 
 		static int FindBytes<T>(IEnumerable<T> source, IEnumerable<T> pattern)
