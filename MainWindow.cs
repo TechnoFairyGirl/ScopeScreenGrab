@@ -127,7 +127,8 @@ namespace ScopeScreenGrab
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.ToString(), "Something Went Wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.ToString(), "Something Went Wrong", 
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			finally
@@ -150,7 +151,8 @@ namespace ScopeScreenGrab
 
 				if (bitmap == null)
 				{
-					MessageBox.Show("You must get an image before saving.", "Seriously?!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("You must get an image before saving.", "Seriously?!", 
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return;
 				}
 
@@ -164,7 +166,8 @@ namespace ScopeScreenGrab
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.ToString(), "Something Went Wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.ToString(), "Something Went Wrong", 
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 		}
@@ -177,7 +180,8 @@ namespace ScopeScreenGrab
 
 				if (bitmap == null)
 				{
-					MessageBox.Show("You must get an image before inverting colors.", "Seriously?!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("You must get an image before inverting colors.", "Seriously?!", 
+						MessageBoxButtons.OK, MessageBoxIcon.Error);
 					return;
 				}
 
@@ -198,7 +202,8 @@ namespace ScopeScreenGrab
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.ToString(), "Something Went Wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(ex.ToString(), "Something Went Wrong", 
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 		}
